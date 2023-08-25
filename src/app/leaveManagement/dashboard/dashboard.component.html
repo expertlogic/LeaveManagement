@@ -1,0 +1,116 @@
+<p>
+  <a class="btn btn-primary" (click)="fnChangeView()">
+      <i class="fa fa-plus" *ngIf="viewleaveForm == false" >Apply Leave</i>
+      <i class="fa fa-plus" *ngIf="viewleaveForm == true">View Leaves</i>
+  </a>
+
+</p>
+
+<div class="row">
+  <div class="col-md-3">
+      <div class="card" style="width: 18rem;">
+          <div class="card-body text-center">
+              <h1 class="card-title">{{data.totalRequests ?? 0}} </h1>
+              <h5 class="card-text"> Total Requests</h5>
+          </div>
+      </div>
+  </div>
+  <div class="col-md-3">
+      <div class="card" style="width: 18rem;">
+          <div class="card-body text-center">
+              <h1 class="card-title text-warning"> {{data.pendingRequests ?? 0 }}</h1>
+              <h5 class="card-text"> Pending Requests</h5>
+          </div>
+      </div>
+  </div>
+  <div class="col-md-3">
+      <div class="card" style="width: 18rem;">
+          <div class="card-body text-center">
+              <h1 class="card-title text-success">{{data.approvedRequests ?? 0 }}  </h1>
+              <h5 class="card-text"> Approved Requests </h5>
+          </div>
+      </div>
+  </div>
+  <div class="col-md-3">
+      <div class="card" style="width: 18rem;">
+          <div class="card-body text-center">
+              <h1 class="card-title text-danger">{{data.rejectedRequests ?? 0 }} </h1>
+              <h5 class="card-text"> Rejected Requests</h5>
+          </div>
+      </div>
+  </div>
+</div>
+
+<br />
+<br />
+<div *ngIf="!viewleaveForm">
+<hr />
+<h1>Leave Request Log</h1>
+<hr />
+
+<table id="tblData" class="table">
+  <thead>
+      <tr>
+          <th>
+              Employee Name
+          </th>
+          <th>
+              Start Date
+          </th>
+          <th>
+              End Date
+          </th>
+          <th>
+              Leave Type
+          </th>
+          <th>
+              Date Requested
+          </th>
+          <th>
+              Approval Status
+          </th>
+          <th></th>
+      </tr>
+  </thead>
+  <tbody>
+
+          <tr *ngFor="let item of data.leaveRequests">
+              <td>
+               <p *ngIf="item.requestingEmployee.firstname != null">{{ item.requestingEmployee.firstname    }} </p>
+               <p *ngIf="item.requestingEmployee.email != null">{{ item.requestingEmployee.email    }} </p>
+              </td>
+              <td>
+                {{item.startDate   }}
+              </td>
+              <td>
+                {{item.endDate  }}
+
+              </td>
+              <td>
+                {{item.leaveType.name   }}
+
+              </td>
+              <td>
+                {{item.dateRequested  }}
+              </td>
+              <td>
+
+                      <span  *ngIf="item.approved == true" class="badge badge-success">Approved</span>
+
+                      <span *ngIf="item.approved == false"  class="badge badge-danger">Rejected</span>
+
+                       <span *ngIf="item.approved == null" class="badge badge-warning">Pending Approval</span>
+              <td>
+                  <!-- <a class="btn btn-outline-primary"   asp-route-id="@item.Id">
+                      <i class="fa fa-file"></i> Review
+                  </a>  -->
+              </td>
+          </tr>
+
+  </tbody>
+</table>
+</div>
+
+<div *ngIf="viewleaveForm">
+  <app-leave-request (saveForm)="fnChangeView()"></app-leave-request>
+</div>

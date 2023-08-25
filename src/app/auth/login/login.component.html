@@ -1,0 +1,33 @@
+<div class="container col-md-6 offset-md-3 mt-5">
+  <div *ngIf="error" class="alert alert-danger">{{error}}</div>
+  <div class="card">
+      <h4 class="card-header">Login</h4>
+      <div class="card-body">
+        <form [formGroup]="registrationForm" (ngSubmit)="onSubmit()">
+          <div class="form-group">
+            <label for="username">Username:</label>
+            <input type="text" id="username" formControlName="username" class="form-control" required>
+            <div *ngIf=" registrationForm.get('username')?.invalid" class="invalid-feedback">
+              <div *ngIf="registrationForm.get('username')?.touched" >Username is required</div>
+          </div>
+     </div>
+
+
+          <!-- <div class="form-group">
+            <label for="email">Email:</label>
+            <input type="email" id="email" formControlName="email" class="form-control" required>
+
+          </div> -->
+
+          <div class="form-group">
+            <label for="password">Password:</label>
+            <input type="password" id="password" formControlName="password" class="form-control" required>
+            <div *ngIf="registrationForm.get('password')?.invalid && registrationForm.get('password')?.touched"
+                 class="error-message">Password is required and should have a minimum length of 8 characters.</div>
+          </div>
+
+          <button type="submit" [disabled]="!registrationForm.valid" class="btn btn-primary">Login</button>
+        </form>
+      </div>
+  </div>
+</div>

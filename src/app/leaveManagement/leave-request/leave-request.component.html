@@ -1,0 +1,98 @@
+<div class="row">
+  <div class="col-md-8">
+
+    <h5>Create a leave request</h5>
+    <form [formGroup]="leaveRequestForm" (ngSubmit)="onSubmit()">
+      <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+      <div class="row">
+        <div class="col-md-6">
+          <div class="form-group">
+            <label class="control-label"></label>
+            <mat-form-field>
+              <mat-label>Leave Type</mat-label>
+              <mat-select formControlName="leaveTypeId" required>
+                <mat-option *ngFor="let leaveType of leaveTypes" [value]="leaveType.id">
+                  {{leaveType.name}}
+                </mat-option>
+              </mat-select>
+            </mat-form-field>
+            <div *ngIf="leaveRequestForm.get('leaveTypeId')?.invalid" class="invalid-feedback">
+              leaveType is required
+            </div>
+          </div>
+        </div>
+        <div class="col-md-6">
+          <div class="form-group">
+            <section class="example-section">
+              <mat-checkbox class="example-margin" formControlName="isTravelRequired"
+                (change)="checkCheckBoxvalue($event)">Required Travel?</mat-checkbox>
+            </section>
+          </div>
+        </div>
+
+      </div>
+
+
+      <div class="row">
+        <div class="col-md-6">
+          <div class="form-group">
+            <mat-form-field  >
+              <mat-label>Enter a date range</mat-label>
+              <mat-date-range-input [min]="min" [max]="max" [dateFilter]="myFilter"  [rangePicker]="picker">
+                <input matStartDate matInput formControlName="startDate" placeholder="Start date">
+                <input matEndDate matInput formControlName="endDate" placeholder="End date">
+              </mat-date-range-input>
+              <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+              <mat-date-range-picker #picker ></mat-date-range-picker>
+            </mat-form-field>
+
+
+            <!-- <mat-form-field>
+              <mat-label>Choose Start Date</mat-label>
+              <input matInput [matDatepicker]="startDate" dateInput="dd/mm/yyyy" formControlName="startDate" required>
+              <mat-hint>DD/MM/YYYY</mat-hint>
+              <mat-datepicker-toggle matIconSuffix [for]="startDate"></mat-datepicker-toggle>
+              <mat-datepicker #startDate></mat-datepicker>
+            </mat-form-field> -->
+
+          </div>
+        </div>
+        <div class="col-md-6">
+          <div class="form-group">
+
+            <!-- <mat-form-field>
+              <mat-label>Choose End Date</mat-label>
+              <input matInput [matDatepicker]="endDate" dateInput="dd/mm/yyyy" formControlName="endDate" required>
+              <mat-hint>DD/MM/YYYY</mat-hint>
+              <mat-datepicker-toggle matIconSuffix [for]="endDate"></mat-datepicker-toggle>
+              <mat-datepicker #endDate></mat-datepicker>
+            </mat-form-field> -->
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-12">
+          <div class="form-group">
+            <mat-form-field class="col-md-12">
+              <mat-label>Remarks</mat-label>
+              <textarea matInput placeholder="Remarks for leave..." formControlName="requestComments"></textarea>
+            </mat-form-field>
+          </div>
+        </div>
+
+      </div>
+
+      <div class="row">
+        <div class="col-md-12">
+          <div *ngIf="errorMsg" class="alert alert-danger">{{errorMsg}}</div>
+
+        </div>
+
+      </div>
+
+      <div class="form-group">
+        <input type="submit"  value="{{isRequestSent ? 'Sending...' : 'Request Leave'}}" class="btn btn-primary btn-block" />
+      </div>
+    </form>
+  </div>
+</div>
