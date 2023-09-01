@@ -34,7 +34,7 @@ export class AppComponent {
     if (this.isLoggedIn) {
       const user = this.storageService.getUser();
       this.roles = user.userRole;
-debugger;
+
       this.showAdminBoard = this.roles?.includes('Administrator');
       this.username = user.userName;
     }

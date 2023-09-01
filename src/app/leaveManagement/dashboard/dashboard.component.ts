@@ -17,6 +17,7 @@ export class DashboardComponent {
   }
 
   ngOnInit(): void {
+    this.data = {};
     this.GetDashboardData();
   }
   fnChangeView() {

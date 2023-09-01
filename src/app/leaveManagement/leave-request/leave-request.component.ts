@@ -37,7 +37,7 @@ export class LeaveRequestComponent implements OnInit {
       leaveTypeId: ['', [Validators.required]],
       startDate: ['', [Validators.required]],
       endDate: ['', [Validators.required]],
-      isTravelRequired: [Boolean, false],
+      isTravelRequired: [false],
       requestComments: ['']
     });
   }
@@ -61,6 +61,7 @@ export class LeaveRequestComponent implements OnInit {
     this.isRequestSent = true;
 
     var formValues = this.leaveRequestForm.value;
+debugger;
 
     var leaveRequest = {
       startDate: new Date(formValues.startDate).toDateString(),
